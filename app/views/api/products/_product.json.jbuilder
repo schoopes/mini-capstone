@@ -1,9 +1,10 @@
 json.id product.id
 json.name product.name
 json.price product.price
-json.image_url product.image_url
+json.image product.images
 json.description product.description
 json.in_stock product.in_stock
+json.supplier product.supplier.name
 
 json.formatted do
   json.price number_to_currency(product.price)
