@@ -2,22 +2,21 @@ class Product < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true 
   validates :price, numericality: {greater_than: 0}
-  validates :description, length: {in: 20..500}
+  # validates :description, length: {in: 20..500}
 
-  def supplier
-    Supplier.find_by(id: supplier_id)
-  end
+  belongs_to :supplier
 
-  def images
-    Image.where(id: image_id)
-  end
+  has_many :images
+
+  has_many :category_products
+  has_many :categories, through: :category_products
+
+  has_many :carted_products
+
+  has_many :orders, through: :carted_products
 
   def is_discounted?
-    if price < 10
-      "true"
-    else
-      "false" 
-    end   
+    price <= 10  
   end
 
   def tax

@@ -1,4 +1,7 @@
 class Api::ProductsController < ApplicationController
+
+  before_action :authenticate_admin, except: [:index, :show]
+
   def index
     @products = Product.all
 
@@ -24,6 +27,12 @@ class Api::ProductsController < ApplicationController
     else
       @products = @products.order(:id)
     end
+
+    if params[:category]
+      category = Category.find_by(name: params[:category])
+      @products = category.products
+    end
+    
     render 'index.json.jbuilder'
   end
 
@@ -36,7 +45,6 @@ class Api::ProductsController < ApplicationController
     @product = Product.new(
       name: params[:name],
       price: params[:price],
-      image_id: params[:image_id],
       description: params[:description],
       in_stock: params[:in_stock],
       supplier_id: params[:supplier_id]
@@ -52,7 +60,6 @@ class Api::ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @product.name = params[:name] || @product.name
     @product.price = params[:price] || @product.price
-    @product.image_id = params[:image_id] || @product.image_id
     @product.description = params[:description] || @product.description
     @product.in_stock = params[:in_stock] || @product.in_stock
     @product.supplier_id = params[:supplier_id] || @product.supplier_id

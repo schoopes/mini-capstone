@@ -5,6 +5,8 @@ json.image product.images
 json.description product.description
 json.in_stock product.in_stock
 json.supplier product.supplier.name
+json.current_user current_user
+json.categories product.categories
 
 json.formatted do
   json.price number_to_currency(product.price)

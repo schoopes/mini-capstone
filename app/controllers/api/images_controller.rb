@@ -12,7 +12,8 @@ class Api::ImagesController < ApplicationController
 
   def create
     @image = Image.new(
-      url: params[:url]
+      url: params[:url],
+      product_id: params[:product_id]
       )
     @image.save
     render 'show.json.jbuilder'
@@ -21,6 +22,7 @@ class Api::ImagesController < ApplicationController
   def update
     @image = Image.find(params[:id])
     @image.url = params[:url] || @image.url
+    @image.product_id = params[:product_id] || @image.product_id
     @image.save
     render 'show.json.jbuilder'
   end

@@ -19,5 +19,24 @@ Rails.application.routes.draw do
     post "/images" => "images#create"
     patch "/images/:id" => "images#update"
     delete "/images/:id" => "images#destroy"
+
+    post "/users" => "users#create"
+    
+    post "/sessions" => "sessions#create"
+
+    get "/orders" => "orders#index"
+    post "/orders" => "orders#create"
+
+    get "/carted_products" => "carted_products#index"
+    post "/carted_products" => "carted_products#create"
+    delete "/carted_products" => "carted_products#destroy"
   end
+
+  get "/products" => "products#index"
+  get "/products/new" => "products#new"
+  get "/products/:id" => "products#show"
+  post "/products" => "products#create"
+  get "/products/:id/edit" => "products#edit"
+  patch "/products/:id" => "products#update"
+  delete "products/:id" => "products#destroy"
 end
